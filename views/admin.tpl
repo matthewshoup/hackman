@@ -62,10 +62,10 @@
 			<div class="col-md-8">
                         <blockquote>Public Announcement</blockquote>
 			<form class="form-inline" action="/announce" method="POST">
-				<input type="text" name="announcement" id="announcement" class="form-control" placeholder="Announcement Text" style="min-width:570px">
+				<input type="text" name="announcement" id="announcement" class="form-control" placeholder="Announcement Text" style="min-width:570px" required>
 				<button type="submit" class="btn btn-default">Announce</button>
 			</form>
-
+			<hr>
 
                                 <blockquote style="margin-top:20px;">
                                   Hackathon History
@@ -94,15 +94,15 @@
 					<form action="/organize" method="POST">
 				<div class="form-group">
 				    <label for="hackathon">Hackathon</label>
-				    <input type="text" class="form-control" name="hackathon" id="hackathon" placeholder="Name of Hackathon">
+				    <input type="text" class="form-control" name="hackathon" id="hackathon" placeholder="Name of Hackathon" required>
 				  </div>
 				  <div class="form-group">
 				    <label for="hackathon-description">Description</label>
-				    <input type="text" class="form-control" name="hackathon-description" id="hackathon-description" placeholder="Description for Hackathon">
+				    <input type="text" class="form-control" name="hackathon-description" id="hackathon-description" placeholder="Description for Hackathon" required>
 				  </div>
 				  <div class="form-group">
 				    <label for="hackathon-organization">Github Organization</label>
-				    <input type="text" class="form-control" name="hackathon-organization" id="hackathon-organization" placeholder="GitHub Organization for Hackathon">
+				    <input type="text" class="form-control" name="hackathon-organization" id="hackathon-organization" placeholder="GitHub Organization for Hackathon" required>
 				  </div>
 				<button type="submit" class="btn btn-default">Create</button>
 					</form>

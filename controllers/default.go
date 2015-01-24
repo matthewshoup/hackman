@@ -16,6 +16,12 @@ func (this *MainController) Get() {
           this.TplNames = "index.tpl"
         } else {
           w, _ := v.(map[string]string)
+
+          if w["profile"] == "admin" {
+            this.Redirect("/admin", 302)
+            return
+          }
+
           this.Data["Name"] = w["name"]
           this.Data["Avatar"] = w["avatar"]
           this.TplNames = "user.tpl"
