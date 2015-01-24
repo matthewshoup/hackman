@@ -39,15 +39,16 @@ func (this *OauthController) ParseCode() {
 	token := AccessToken(this.GetString("code"), beego.AppConfig.String("client_id"), beego.AppConfig.String("client_secret"))
         name, username, email, avatar := Credentials(token)
 
-	user := models.User{Token: token, Name: name, UserName: username, Email: email, Avatar: avatar}
+        // there is a fucking hardcoded thing here. manage who is admin and who is not, like human do.
+	user := models.User{Token: token, Name: name, UserName: username, Email: email, Avatar: avatar, Admin: "no"}
         models.CreateUser(&user)
 
-        sm := make(map[string]string)
-        sm["email"] = email
-        sm["name"] = name
-        sm["username"] = username
-        sm["avatar"] = avatar
-        this.SetSession("hackman", sm)
+        ss := make(map[string]string)
+        ss["email"] = email
+        ss["name"] = name
+        ss["username"] = username
+        ss["avatar"] = avatar
+        this.SetSession("hackman", ss)
 
         this.Redirect("/", 302)
         return

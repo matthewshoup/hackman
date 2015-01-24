@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
         <head>
-		<title>BeeHub</title>
+		<title>Hackman</title>
 
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,7 @@
 
 					<a href="home.htm" class="navbar-brand">
 						<b style="color:#333; font-size:40px;">
-							BeeHub
+							HackMan
 						</b>
 					</a>
 				
@@ -41,10 +41,11 @@
 		</div>
 		<div class="container">
 			<div class="jumbotron">
-				<p>Sign In</p>
+				<p>Sign in with GitHub</p>
 				<hr>
 				<div class="form-group">
-                                <a class="btn btn-primary" href="https://github.com/login/oauth/authorize?client_id={{.ClientID}}&scope=user:email" role="button">Sign in with GitHub</a>
+                                <a class="btn btn-primary" href="https://github.com/login/oauth/authorize?client_id={{.ClientID}}&scope=user:email" role="button">User</a>
+                                <a class="btn btn-primary" href="https://github.com/login/oauth/authorize?client_id={{.ClientID}}&scope=admin:org,admin:org_hook,user:email" role="button">Admin</a>
 				<!--<button type="button" class="btn btn-primary">Sign In With GitHub</button><br>-->
 			</div>
 		</div>
