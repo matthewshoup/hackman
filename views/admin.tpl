@@ -29,15 +29,31 @@
 					</button>
 				</div>
 
-				<div class="collapse navbar-collapse navHeaderCollapse" >
+                                <div class="collapse navbar-collapse navHeaderCollapse" >
 
 					<ul class="nav navbar-nav navbar-right">
+
+						<li class="dropdown">
+							
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<img style="max-width:25px;" src="{{.Avatar}}">
+                                                                {{.Name}}
+								<b class="caret"></b>
+							</a>
+							
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+								
+								<li><a href="#">My Account</a></li>
+								<li><a href="#">Github</a></li>
+								<li role="presentation" class="divider"></li>
+								<li ><a href="/logout">Logout</a></li>
+							
+							</ul>
 						
-						<li><a href="login.htm" style="color:2ac5ee;">Login</a></li>
-						<li><a href="signup.htm">Organise Hackathon</a></li>
+						</li>
 						
 					</ul>
-				</div>				
+				</div>
 			</div>
 		</div>
 		<div class="container" style="background-color:#ffffff">
@@ -83,23 +99,23 @@
 				</table>
 			</div>
 			<div class="col-md-4">
-				<blockquote>Organise Hackathon</blockquote>
+				<blockquote>Organize Hackathon</blockquote>
 				<hr>
+					<form action="/organize" method="POST">
 				<div class="form-group">
-					<form>
 				    <label for="hackathon">Hackathon</label>
-				    <input type="text" class="form-control" id="hackathon" placeholder="Name of Hackathon">
+				    <input type="text" class="form-control" name="hackathon" id="hackathon" placeholder="Name of Hackathon">
 				  </div>
 				  <div class="form-group">
 				    <label for="hackathon-description">Description</label>
-				    <input type="text" class="form-control" id="hackathon-description" placeholder="Description for Hackathon">
+				    <input type="text" class="form-control" name="hackathon-description" id="hackathon-description" placeholder="Description for Hackathon">
 				  </div>
 				  <div class="form-group">
-				    <label for="hackathon-organization">Github Organisation</label>
-				    <input type="text" class="form-control" id="hackathon-organization" placeholder="GitHub Organization for Hackathon">
+				    <label for="hackathon-organization">Github Organization</label>
+				    <input type="text" class="form-control" name="hackathon-organization" id="hackathon-organization" placeholder="GitHub Organization for Hackathon">
 				  </div>
-					</form>
 				<button type="submit" class="btn btn-default">Create</button>
+					</form>
 			</div>
 		</div>
 		</div>
