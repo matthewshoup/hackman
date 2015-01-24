@@ -11,6 +11,11 @@ func init() {
     beego.Router("/callback", &controllers.OauthController{}, "get:ParseCode")
     beego.Router("/admin", &controllers.AdminController{})
     beego.Router("/organize", &controllers.OrganizeController{}, "post:Organize")
+
     beego.Router("/announce/?:category", &controllers.AnnounceController{}, "post:Announce")
     beego.Router("/public", &controllers.PublicController{})
+
+    beego.Router("/team", &controllers.TeamController{})
+    beego.Router("/hackathon", &controllers.HackathonController{})
+
 }
