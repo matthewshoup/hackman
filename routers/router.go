@@ -16,6 +16,8 @@ func init() {
     beego.Router("/public", &controllers.PublicController{})
 
     beego.Router("/team", &controllers.TeamController{})
+    beego.Router("/confirmteam", &controllers.TeamConfirmController{})
+
     beego.Router("/hackathon", &controllers.HackathonController{})
 
 }
