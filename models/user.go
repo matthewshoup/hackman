@@ -97,6 +97,15 @@ func GetUserByEmail(email string) (v *User, err error){
 	return nil, err
 }
 
+func GetUserByUsername(username string) (v *User, err error){
+	o := orm.NewOrm()
+	v = &User{UserName: username}
+	if err = o.Read(v); err == nil {
+		return v, nil
+	}
+	return nil, err
+}
+
 // UpdateUser updates User by Id and returns error if
 // the record to be updated doesn't exist
 func UpdateUserById(m *User) (err error) {
