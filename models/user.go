@@ -32,19 +32,49 @@ func AddUser(m *User) (id int64, err error) {
 	return
 }
 
-func CreateUser(m *User) {
+func CreateUser(m *User) bool {
   o := orm.NewOrm()
+
+  var rows int
+  var result int64 = -1
+  beego.Info(m.Admin)
+  o.Raw("select count(*) as Count from user").QueryRow(&rows)
+  beego.Info(rows)
+  if rows > 0 {
+    m.Admin = "no"
+  }
+  beego.Info(m.Admin)
+
   user := User{Email: m.Email}
 
   err := o.Read(&user, "Email")
   if err == orm.ErrNoRows {
     beego.Info("no result found")
-    o.Insert(m)
+
+    id, _ := o.Insert(m)
+    result = id
+
   } else if err == orm.ErrMissPK {
     beego.Info("no primary key found")
   } else {
     beego.Info(user.Name)
   }
+
+    beego.Info(result)
+    if result == -1 {
+      beego.Info("admin again")
+      return true
+    } else if result == 1 {
+      beego.Info("admin")
+      return true
+    } else {
+      beego.Info("user")
+      return false
+    }
+}
+
+func IsAdmin(m *User) {
+  //o := orm.NewOrm()
 }
 
 // GetUserById retrieves User by Id. Returns error if
