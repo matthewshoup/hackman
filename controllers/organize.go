@@ -16,6 +16,7 @@ func (this *OrganizeController) Organize() {
 
   hackathon := models.Hackathon{Name: name, Description: desc, Organization: org}
   models.CreateHackathon(&hackathon)
+
   this.Redirect("/admin", 302)
   return
 }
