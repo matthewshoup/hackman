@@ -79,22 +79,12 @@
  					</tr>
  					</thead>
  					<tbody>
+                                        {{range $key, $val := .Hackathons}}
  					<tr>
- 						<td>Gophergala</td>
- 						<td>Jan. 23, 2015</td>
+ 						<td>{{$val.Name}}</td>
+ 						<td>{{$val.Organization}}</td>
  					</tr>
- 					</tbody>
- 					<tbody>
- 					<tr>
- 						<td>Node knockout</td>
- 						<td>Jan. 30, 2015</td>
- 					</tr>
- 					</tbody>
- 					<tbody>
- 					<tr>
- 						<td>Django dash</td>
- 						<td>Feb. 9, 2015</td>
- 					</tr>
+                                        {{end}}
  					</tbody>
 				</table>
 			</div>
