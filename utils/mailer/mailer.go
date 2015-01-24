@@ -1,22 +1,33 @@
-package utils
+package mailer
 
-import "fmt"
 import "github.com/mailgun/mailgun-go"
+import "fmt"
 
-var (
-	publicApiKey string = "xxxx"
-	apiKey       string = "xxxx"
-	domain       string = "xxxx.mailgun.org"
-)
+type Mailer struct {
+  Domain string
+  ApiKey string
+  PublicApiKey string
+}
 
-func SendSimpleMessage(domain, apiKey string) (string, error) {
-	mg := mailgun.NewMailgun(domain, apiKey, publicApiKey)
-	m := mg.NewMessage(
-		"Hackman-Postmaster <hackman-postmaster@xxxx.mailgun.org>",
-		"Hello",
-		"Testing some Mailgun awesomeness!",
-		"hackpravj@gmail.com",
+type Message struct {
+  Heading string
+  Body string
+  Receiver string
+}
+
+func New(domain, apiKey, publicApiKey string) *Mailer {
+  return &Mailer{Domain:domain, ApiKey:apiKey, PublicApiKey:publicApiKey}
+}
+
+func (m *Mailer) SendMessage(msg Message) (string, error) {
+        fmt.Println("Hackman-Postmaster <hackman-postmaster@" + m.Domain + ">")
+	mg := mailgun.NewMailgun(m.Domain, m.ApiKey, m.PublicApiKey)
+	mail := mg.NewMessage(
+		"Hackman-Postmaster <hackman-postmaster@" + m.Domain + ">",
+		msg.Heading,
+		msg.Body,
+		msg.Receiver,
 	)
-	_, id, err := mg.Send(m)
+	_, id, err := mg.Send(mail)
 	return id, err
 }
