@@ -65,8 +65,8 @@
                     <blockquote>Your Details </blockquote>
                     <form>
 						<div class="form-group">
-							<label for="TeamName">Team Name</label>
-						    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Name">
+							<label for="teamName">Team Name</label>
+						    <input type="text" class="form-control" id="teamName" placeholder="Name" required>
 						</div>
 				        <button type="submit" class="btn btn-default">Submit</button>
 					</form>
@@ -108,9 +108,9 @@
 				<form>
 				  <div class="form-group">
 				    <label for="exampleInputEmail1">Invite Member</label>
-				    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+				    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" required>
 				  </div>
-				  <button type="submit" class="btn btn-default">Add</button>
+				  <button type="submit" class="btn btn-default">Invite</button>
 				</form>
 			</div>
 		</div>

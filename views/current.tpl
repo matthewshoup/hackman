@@ -32,7 +32,7 @@
                                 <div class="collapse navbar-collapse navHeaderCollapse" >
 
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="current.htm">Active Now</a></li>
+
 						<li class="dropdown">
 							
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -56,54 +56,53 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="container" style="background-color:#ffffff">
 		<div class="jumbotron" style="background-color:#ffffff">
-		<div class="row" >
-			<div class="col-md-8">
-                        <blockquote>Public Announcements </blockquote>
+                        <blockquote>Active Hackathons</blockquote>
             <table class="table">
-            {{range $key, $val := .Announcements}}
             <tbody>
+            <tr>
             <td>
             <div class="row">
             	<div class="col-md-10">
-            		<p style="font-size:14px">{{$val.Announcement}}</p>
+            		<p style="font-size:14px">This is a Announcement.And go participate and enjoy it. Text is text man. And yeah i think now it will no suck. Yeah man.iam right.</p>
             	</div>
             	<div class="col-mg-2">
-            		<p style="color:#babbbf;text-align:right;font-size:14px">{{$val.Time}}</p>
+            		<button class="btn btn-default">Participate</button>
             	</div>
             </div>
             </td>
+            </tr>
+            <tr>
+            <td>
+            <div class="row">
+            	<div class="col-md-10">
+            		<p style="font-size:14px">This is another anouncement man . hpoe u liked last one.</p>
+            	</div>
+            	<div class="col-mg-2">
+            		<button class="btn btn-default">Participate</button>
+            	</div>
+            </div>
+            </td>
+            </tr>
+            <tr>
+            <td>
+            <div class="row">
+            	<div class="col-md-10">
+            		<p style="font-size:14px">This is the last anouncement buddies.Go get an inetrn .:)</p>
+            	</div>
+            	<div class="col-mg-2">
+            		<button class="btn btn-default">Participate</button>
+            	</div>
+            </div>
+            </td>
+            </tr>
              </tbody>     
-            {{end}}
             </table>
 
 			</div>
-			<div class="col-md-4">
-				<blockquote>
-                                Hackathon History
-                        </blockquote>
-                                <hr>
-
-				<table class="table table-hover" style="margin-top:20px">
-					<thead>
- 					<tr>
- 						<th>Name</th>
- 						<th>Time</th>
- 					</tr>
- 					</thead>
- 					<tbody>
-                                        {{range $key, $val := .Hackathons}}
- 					<tr>
- 						<td>{{$val.Name}}</td>
- 						<td>{{$val.Organization}}</td>
- 					</tr>
-                                        {{end}}
- 					</tbody>
-				</table>
-			</div>
-		</div>
-		</div>
+			
 		</div>
 
 
