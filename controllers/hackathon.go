@@ -36,7 +36,7 @@ func (c *HackathonController) Post() {
 // @router /:id [get]
 func (c *HackathonController) Get() {
 	c.Data["data"] = models.GetAllHackathon()
-	c.TplNames = "json.tpl"
+	c.TplNames = "current.tpl"
 }
 
 // @Title Get All

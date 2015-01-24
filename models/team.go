@@ -12,6 +12,7 @@ import (
 type Team struct {
 	Id          int64  `orm:"auto"`
 	Name        string `orm:"size(128)"`
+	RepoName	string `orm:"size(128)"`
 	UserId1     int
 	UserId2     int
 	UserId3     int
@@ -51,6 +52,15 @@ func GetTeamById(id int64) (v *Team, err error) {
 func GetTeamByName(name string) (v *Team, err error) {
 	o := orm.NewOrm()
 	v = &Team{Name: name}
+	if err = o.Read(v); err == nil {
+		return v, nil
+	}
+	return nil, err
+}
+
+func GetTeamByUIdHId(UId int, HId int) (v *Team, err error) {
+	o := orm.NewOrm()
+	v = &Team{UserId2: UId, HackathonId: HId}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}

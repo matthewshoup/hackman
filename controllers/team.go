@@ -31,23 +31,47 @@ func (this *TeamController) Post() {
         email := this.Input().Get("email")
         hackathonId, _ := strconv.Atoi(this.Input().Get("hackathonId"))
 
-        if email != "" {
-            Uid1, _ := models.GetUserByUsername(username)
-            Uid, err := models.GetUserByEmail(email)
-            /*Error handling here*/
+        /*Create team first, then add boys.*/
+        
+        /*Get UserId of CUrrent User*/
+        Uid1, _ := models.GetUserByUsername(username)
+        team, err := models.GetTeamByName(name)
 
-            team, err := models.GetTeamByName(name)
-            if err != nil {
-                //Update the entries/
-                beego.Info(team.Id)
-            } else{
-                //Create the team entry in team table.
-                team := models.Team{Name: name, UserId1: Uid1.Id, UserId2: Uid.Id, UserId3: 0, UserId4: 0, CreatorId: Uid1.Id,  AccByU1:true, AccByU2:false, AccByU3: false, AccByU4: false, HackathonId: hackathonId, CreatedAt: time.Now().Local()}
-                models.AddTeam(&team)
+        /*Check wheather team exists*/
+        if err != nil {
+            /*Update the entries*/
+            Uid, _ := models.GetUserByEmail(email) //Add error handling for this
+            if(team.UserId2 == -1){
+                team.UserId2 = Uid.Id
+            }else if(team.UserId3 == -1){
+                team.UserId3 = Uid.Id
+            }else if(team.UserId4 == -1){
+                team.UserId4 = Uid.Id
             }
-        } else{
-            beego.Error("Email is missing !!")
+
+            err1 := models.UpdateTeamById(team)
+            if err1 == nil {
+                //SendMail(email, hackathonName, teamName)
+            }
+        } else {
+            /*Create New team */
+            team := models.Team{
+                Name: name, 
+                UserId1: Uid1.Id, 
+                UserId2: -1, 
+                UserId3: -1, 
+                UserId4: -1, 
+                CreatorId: Uid1.Id,  
+                AccByU1:true, 
+                AccByU2:false, 
+                AccByU3: false, 
+                AccByU4: false, 
+                HackathonId: hackathonId, 
+                CreatedAt: time.Now().Local(),
+            }
+            models.AddTeam(&team)
         }
+        
     }
 }
 
