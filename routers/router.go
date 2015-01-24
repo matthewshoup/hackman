@@ -12,4 +12,5 @@ func init() {
     beego.Router("/admin", &controllers.AdminController{})
     beego.Router("/organize", &controllers.OrganizeController{}, "post:Organize")
     beego.Router("/announce/?:category", &controllers.AnnounceController{}, "post:Announce")
+    beego.Router("/public", &controllers.PublicController{})
 }

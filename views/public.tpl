@@ -62,42 +62,20 @@
 			<div class="col-md-8">
                         <blockquote>Public Announcements </blockquote>
             <table class="table">
+            {{range $key, $val := .Announcements}}
             <tbody>
             <td>
             <div class="row">
             	<div class="col-md-10">
-            		<p style="font-size:14px">This is a Announcement.And go participate and enjoy it. Text is text man. And yeah i think now it will no suck. Yeah man.iam right.</p>
+            		<p style="font-size:14px">{{$val.Announcement}}</p>
             	</div>
             	<div class="col-mg-2">
-            		<p style="color:#babbbf;text-align:right;font-size:14px">Jan. 23, 2015</p>
-            	</div>
-            </div>
-            </td>
-            </tbody>
-            <tbody>
-            <td>
-            <div class="row">
-            	<div class="col-md-10">
-            		<p style="font-size:14px">This is another anouncement man . hpoe u liked last one.</p>
-            	</div>
-            	<div class="col-mg-2">
-            		<p style="color:#babbbf;text-align:right;font-size:14px">Jan. 23, 2015</p>
-            	</div>
-            </div>
-            </td>
-            </tbody>
-            <tbody>
-            <td>
-            <div class="row">
-            	<div class="col-md-10">
-            		<p style="font-size:14px">This is the last anouncement buddies.Go get an inetrn .:)</p>
-            	</div>
-            	<div class="col-mg-2">
-            		<p style="color:#babbbf;text-align:right;font-size:14px">Jan. 23, 2015</p>
+            		<p style="color:#babbbf;text-align:right;font-size:14px">{{$val.Time}}</p>
             	</div>
             </div>
             </td>
              </tbody>     
+            {{end}}
             </table>
 
 			</div>
@@ -105,6 +83,7 @@
 				<blockquote>
                                 Hackathon History
                         </blockquote>
+                                <hr>
 
 				<table class="table table-hover" style="margin-top:20px">
 					<thead>
@@ -114,22 +93,12 @@
  					</tr>
  					</thead>
  					<tbody>
+                                        {{range $key, $val := .Hackathons}}
  					<tr>
- 						<td>Gophergala</td>
- 						<td>Jan. 23, 2015</td>
+ 						<td>{{$val.Name}}</td>
+ 						<td>{{$val.Organization}}</td>
  					</tr>
- 					</tbody>
- 					<tbody>
- 					<tr>
- 						<td>Node knockout</td>
- 						<td>Jan. 30, 2015</td>
- 					</tr>
- 					</tbody>
- 					<tbody>
- 					<tr>
- 						<td>Django dash</td>
- 						<td>Feb. 9, 2015</td>
- 					</tr>
+                                        {{end}}
  					</tbody>
 				</table>
 			</div>

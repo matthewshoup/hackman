@@ -1,11 +1,11 @@
 package models
 
 import (
-	"errors"
+	_ "errors"
 	"fmt"
 	"github.com/astaxie/beego/orm"
-	"reflect"
-	"strings"
+	_ "reflect"
+	_ "strings"
 	"time"
 )
 
@@ -37,6 +37,17 @@ func GetAnnouncementById(id int) (v *Announcement, err error) {
 		return v, nil
 	}
 	return nil, err
+}
+
+// GetAllHackathon retrieves all Hackathon events as a slice object
+func GetAllAnnouncement() ([]Announcement) {
+  o := orm.NewOrm()
+  var announcements []Announcement
+
+  _, err := o.Raw("SELECT * FROM announcement").QueryRows(&announcements)
+  if err == nil {
+  }
+  return announcements
 }
 
 // UpdateAnnouncement updates Announcement by Id and returns error if
