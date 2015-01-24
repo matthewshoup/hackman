@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/pravj/hackman/models"
 )
 
 // oprations for Hackathon
@@ -34,8 +35,8 @@ func (c *HackathonController) Post() {
 // @Failure 403 :id is empty
 // @router /:id [get]
 func (c *HackathonController) Get() {
-	beego.Info("Yo")
-	c.Redirect("/", 302)
+	c.Data["data"] = models.GetAllHackathon()
+	c.TplNames = "json.tpl"
 }
 
 // @Title Get All

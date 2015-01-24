@@ -28,7 +28,7 @@ func AddJhm(m *Jhm) (id int64, err error) {
 
 // GetJhmById retrieves Jhm by Id. Returns error if
 // Id doesn't exist
-func GetJhmById(id int) (v *Jhm, err error) {
+func GetJhmById(id int64) (v *Jhm, err error) {
 	o := orm.NewOrm()
 	v = &Jhm{Id: id}
 	if err = o.Read(v); err == nil {
@@ -128,7 +128,7 @@ func UpdateJhmById(m *Jhm) (err error) {
 
 // DeleteJhm deletes Jhm by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteJhm(id int) (err error) {
+func DeleteJhm(id int64) (err error) {
 	o := orm.NewOrm()
 	v := Jhm{Id: id}
 	// ascertain id exists in the database
