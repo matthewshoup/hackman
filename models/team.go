@@ -48,6 +48,15 @@ func GetTeamById(id int64) (v *Team, err error) {
 	return nil, err
 }
 
+func GetTeamByName(name string) (v *Team, err error) {
+	o := orm.NewOrm()
+	v = &Team{Name: name}
+	if err = o.Read(v); err == nil {
+		return v, nil
+	}
+	return nil, err
+}
+
 // GetAllTeam retrieves all Team matches certain condition. Returns empty list if
 // no records exist
 func GetAllTeam(query map[string]string, fields []string, sortby []string, order []string,

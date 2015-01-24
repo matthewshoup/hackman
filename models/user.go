@@ -16,8 +16,8 @@ type User struct {
 	UserName string `orm:"size(128)"`
 	Email    string `orm:"size(128)"`
 	Token    string `orm:"size(128)"`
-        Avatar   string `orm:"size(128)"`
-        Admin    string `orm:"size(128)"`
+    Avatar   string `orm:"size(128)"`
+    Admin    string `orm:"size(128)"`
 }
 
 func init() {
@@ -82,6 +82,15 @@ func IsAdmin(m *User) {
 func GetUserById(id int) (v *User, err error) {
 	o := orm.NewOrm()
 	v = &User{Id: id}
+	if err = o.Read(v); err == nil {
+		return v, nil
+	}
+	return nil, err
+}
+
+func GetUserByEmail(email string) (v *User, err error){
+	o := orm.NewOrm()
+	v = &User{Email: email}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
