@@ -45,7 +45,7 @@
 				<hr>
 				<div class="form-group">
                                 <a class="btn btn-primary" href="https://github.com/login/oauth/authorize?client_id={{.ClientID}}&scope=user:email" role="button">User</a>
-                                <a class="btn btn-primary" href="https://github.com/login/oauth/authorize?client_id={{.ClientID}}&scope=admin:org,admin:org_hook,user:email" role="button">Admin</a>
+                                <a class="btn btn-primary" href="https://github.com/login/oauth/authorize?client_id={{.ClientID}}&scope=read:org,admin:org,admin:org_hook,user:email" role="button">Admin</a>
 				<!--<button type="button" class="btn btn-primary">Sign In With GitHub</button><br>-->
 			</div>
 		</div>
