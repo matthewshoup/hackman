@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+        "github.com/pravj/hackman/models"
 )
 
 type AdminController struct {
@@ -19,6 +20,9 @@ func (this *AdminController) Get() {
 		this.Data["Avatar"] = w["avatar"]
 
 		if w["profile"] == "admin" {
+                        hackathons := models.GetAllHackathon()
+                        this.Data["Hackathons"] = hackathons
+
 			this.TplNames = "admin.tpl"
 		} else if w["profile"] == "user" {
 			this.Redirect("/", 302)
