@@ -61,8 +61,8 @@
 		<div class="row" >
 			<div class="col-md-8">
                         <blockquote>Public Announcement</blockquote>
-			<form class="form-inline">
-				<input type="text" id="announcement" class="form-control" placeholder="Announcement Text" style="min-width:570px">
+			<form class="form-inline" action="/announce" method="POST">
+				<input type="text" name="announcement" id="announcement" class="form-control" placeholder="Announcement Text" style="min-width:570px">
 				<button type="submit" class="btn btn-default">Announce</button>
 			</form>
 
