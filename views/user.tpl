@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-        <head>
+
+	<head>
 		<title>BeeHub</title>
 
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -16,7 +17,7 @@
 
 				<div class="navbar-header">
 
-					<a href="home.htm" class="navbar-brand">
+					<a href="#" class="navbar-brand">
 						<b style="color:#333; font-size:40px;">
 							BeeHub
 						</b>
@@ -29,23 +30,31 @@
 					</button>
 				</div>
 
-				<!--<div class="collapse navbar-collapse navHeaderCollapse" >
+				<div class="collapse navbar-collapse navHeaderCollapse" >
 
 					<ul class="nav navbar-nav navbar-right">
+
+						<li class="dropdown">
+							
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<img style="max-width:25px;" src="{{.Avatar}}">
+                                                                {{.Name}}
+								<b class="caret"></b>
+							</a>
+							
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+								
+								<li><a href="#">My Account</a></li>
+								<li><a href="#">Github</a></li>
+								<li role="presentation" class="divider"></li>
+								<li ><a href="/logout">Logout</a></li>
+							
+							</ul>
 						
-						<li><a href="login.htm">Login</a></li>
+						</li>
 						
 					</ul>
-				</div>-->				
-			</div>
-		</div>
-		<div class="container">
-			<div class="jumbotron">
-				<p>Sign In</p>
-				<hr>
-				<div class="form-group">
-                                <a class="btn btn-primary" href="https://github.com/login/oauth/authorize?client_id={{.ClientID}}&scope=user:email" role="button">Sign in with GitHub</a>
-				<!--<button type="button" class="btn btn-primary">Sign In With GitHub</button><br>-->
+				</div>				
 			</div>
 		</div>
 
@@ -56,11 +65,12 @@
 
 			<div class="container">
 				<p class="navbar-text pull-left">Made With &lt3 and Golang</p>
-				<a href="https://github.com/pravj/beehub" class="navbar-btn btn-danger btn pull-right">View Project on Github</a>
+				<a href="#" class="navbar-btn btn-danger btn pull-right">View Project on Github</a>
 			</div>
 			
 		</div>
 
+                <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 	</body>
