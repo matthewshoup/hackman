@@ -5,13 +5,12 @@ import (
 	"encoding/json"
 	"github.com/astaxie/beego"
 	"github.com/pravj/hackman/models"
-	"io/ioutil"
-	"net/http"
+	"github.com/pravj/hackman/utils/request"
 )
 
 const (
 	TOKEN_ENDPOINT string = "https://github.com/login/oauth/access_token"
-        USER_ENDPOINT string = "https://api.github.com/user"
+	USER_ENDPOINT  string = "https://api.github.com/user"
 )
 
 type OauthController struct {
@@ -29,78 +28,58 @@ type response struct {
 }
 
 type credential struct {
-        Name string `json:"name"`
-        UserName string `json:"login"`
-        Email string `json:"email"`
-        Avatar string `json:"avatar_url"`
+	Name     string `json:"name"`
+	UserName string `json:"login"`
+	Email    string `json:"email"`
+	Avatar   string `json:"avatar_url"`
 }
 
 func (this *OauthController) ParseCode() {
 	token := AccessToken(this.GetString("code"), beego.AppConfig.String("client_id"), beego.AppConfig.String("client_secret"))
-        name, username, email, avatar := Credentials(token)
+	name, username, email, avatar := Credentials(token)
 
 	user := models.User{Token: token, Name: name, UserName: username, Email: email, Avatar: avatar, Admin: "yes"}
 
-        ss := make(map[string]string)
-        ss["email"] = email
-        ss["name"] = name
-        ss["username"] = username
-        ss["avatar"] = avatar
+	ss := make(map[string]string)
+	ss["email"] = email
+	ss["name"] = name
+	ss["username"] = username
+	ss["avatar"] = avatar
 
-        isAdmin := models.CreateUser(&user)
+	isAdmin := models.CreateUser(&user)
 
-        if isAdmin {
-          ss["profile"] = "admin"
-          this.SetSession("hackman", ss)
+	if isAdmin {
+		ss["profile"] = "admin"
+		this.SetSession("hackman", ss)
 
-          beego.Info("moving to admin")
-          this.Redirect("/admin", 302)
-        } else {
-          ss["profile"] = "user"
-          this.SetSession("hackman", ss)
+		beego.Info("moving to admin")
+		this.Redirect("/admin", 302)
+	} else {
+		ss["profile"] = "user"
+		this.SetSession("hackman", ss)
 
-          beego.Info("moving to user")
-          this.Redirect("/", 302)
-        }
-        return
+		beego.Info("moving to user")
+		this.Redirect("/", 302)
+	}
+	return
 }
 
-func Credentials(AccessToken string) (string, string, string, string) {
-        req, _ := http.NewRequest("GET", USER_ENDPOINT, nil)
+func Credentials(accessToken string) (string, string, string, string) {
+	var cred credential
 
-        AuthHeader := "token " + AccessToken
-        req.Header.Set("Authorization", AuthHeader)
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Accept", "application/json")
+	body := request.Get(USER_ENDPOINT, accessToken)
+	json.Unmarshal(body, &cred)
 
-        client := &http.Client{}
-        res, _ := client.Do(req)
-
-        defer res.Body.Close()
-        body, _ := ioutil.ReadAll(res.Body)
-
-        var cred credential
-        json.Unmarshal(body, &cred)
-
-        return cred.Name, cred.UserName, cred.Email, cred.Avatar
+	return cred.Name, cred.UserName, cred.Email, cred.Avatar
 }
 
 func AccessToken(Code, ClientId, ClientSecret string) string {
 	payloadJson, _ := json.Marshal(payload{Code, ClientId, ClientSecret})
 	payloadReader := bytes.NewReader(payloadJson)
 
-	req, _ := http.NewRequest("POST", TOKEN_ENDPOINT, payloadReader)
-
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Accept", "application/json")
-
-	client := &http.Client{}
-	res, _ := client.Do(req)
-
-	defer res.Body.Close()
-	body, _ := ioutil.ReadAll(res.Body)
-
 	var resp response
+
+	body := request.Post(TOKEN_ENDPOINT, payloadReader)
 	json.Unmarshal(body, &resp)
 
 	return resp.AccessToken
