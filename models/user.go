@@ -62,8 +62,15 @@ func CreateUser(m *User) bool {
 
     beego.Info(result)
     if result == -1 {
-      beego.Info("admin again")
-      return true
+      var users int;
+      o.Raw("select count(*) as Count from user where admin = ? and name = ?", "yes", m.Name).QueryRow(&users)
+      if users > 0 {
+        beego.Info("read admin")
+        return true
+      } else {
+        beego.Info("fake admin")
+        return false
+      }
     } else if result == 1 {
       beego.Info("admin")
       return true
