@@ -55,9 +55,10 @@ func main() {
 
   fmt.Println(reflect.TypeOf(user1))
 
-  team := Team{Id: 0, Name: "test", Users: []User{user1, user2}}
-  fmt.Println(reflect.TypeOf(team))
-  org := Organization{Name: "mockers", Teams: []Team{team}}
+  team1 := Team{Id: 0, Name: "nairitya", Users: []User{user1}}
+  team2 := Team{Id: 0, Name: "shyam", Users: []User{user2}}
+  fmt.Println(reflect.TypeOf(team1))
+  org := Organization{Name: "mockers", Teams: []Team{team1, team2}}
 
   CreateTeams(&org, "xxxxxxxxxxxx")
 }
