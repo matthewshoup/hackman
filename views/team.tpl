@@ -16,7 +16,7 @@
 
 				<div class="navbar-header">
 
-					<a href="#" class="navbar-brand">
+					<a href="/" class="navbar-brand">
 						<b style="color:#333; font-size:40px;">
 							Hackman
 						</b>
@@ -95,7 +95,7 @@
  					{{if ne .teamDetail.User1 "undefined"}}
  					<tbody>
  					<tr>
- 						<td>{{.teamDetail.User1}}</td>
+ 						<td><a href="mailto:{{.teamDetail.Email1}}">{{.teamDetail.User1}}</a></td>
  						{{if eq .teamDetail.AccByU1 1}}
  						<td>Accepted</td>
  						{{else}}
@@ -108,8 +108,8 @@
  					{{if ne .teamDetail.User2 "undefined"}}
  					<tbody>
  					<tr>
- 						<td>{{.teamDetail.user_id2}}</td>
- 						{{if eq .teamDetail.acc_by_u2 true}}
+ 						<td><a href="mailto:{{.teamDetail.Email2}}">{{.teamDetail.User2}}</a></td>
+ 						{{if eq .teamDetail.AccByU2 1}}
  						<td>Accepted</td>
  						{{else}}
  						<td>Pending</td>
@@ -121,8 +121,8 @@
  					{{if ne .teamDetail.User3 "undefined"}}
  					<tbody>
  					<tr>
- 						<td>{{.teamDetail.user_id3}}</td>
- 						{{if eq .teamDetail.acc_by_u3 true}}
+ 						<td><a href="mailto:{{.teamDetail.Email3}}">{{.teamDetail.User3}}</a></td>
+ 						{{if eq .teamDetail.AccByU3 1}}
  						<td>Accepted</td>
  						{{else}}
  						<td>Pending</td>
@@ -134,8 +134,8 @@
  					{{if ne .teamDetail.User4 "undefined"}}
  					<tbody>
  					<tr>
- 						<td>{{.teamDetail.user_id4}}</td>
- 						{{if eq .teamDetail.acc_by_u4 true}}
+ 						<td><a href="mailto:{{.teamDetail.Email4}}">{{.teamDetail.User4}}</a></td>
+ 						{{if eq .teamDetail.AccByU4 1}}
  						<td>Accepted</td>
  						{{else}}
  						<td>Pending</td>

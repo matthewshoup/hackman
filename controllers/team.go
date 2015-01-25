@@ -65,7 +65,7 @@ func (this *TeamController) Post() {
 
 		/*Create team first, then add boys.*/
 
-		/*Get UserId of CUrrent User*/
+		/*Get UserId of Current User*/
 		Uid1, _ := models.GetUserByUsername(username)
 		team, err := models.GetTeamByName(name)
 

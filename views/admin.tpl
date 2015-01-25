@@ -16,7 +16,7 @@
 
 				<div class="navbar-header">
 
-					<a href="#" class="navbar-brand">
+					<a href="/" class="navbar-brand">
 						<b style="color:#333; font-size:40px;">
 							Hackman
 						</b>
