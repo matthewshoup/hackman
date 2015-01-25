@@ -23,6 +23,22 @@ type messageParameter struct {
 	username string
 }
 
+type TeamDetail struct {
+	Name string
+	User1 string
+	User2 string
+	User3 string
+	User4 string
+	AccByU1 int
+	AccByU2 int
+	AccByU3 int
+	AccByU4 int
+	Email1 string
+	Email2 string
+	Email3 string
+	Email4 string
+}
+
 func (c *TeamConfirmController) URLMapping() {
 	c.Mapping("Get", c.Get)
 }
@@ -39,13 +55,12 @@ func (c *TeamController) URLMapping() {
 func (this *TeamController) Post() {
 	v := this.GetSession("hackman")
 	if v == nil {
-		this.TplNames = "index.tpl"
+		this.Redirect("/", 302)
 	} else {
 		w, _ := v.(map[string]string)
 
 		username := w["username"]
-		name := this.Input().Get("name")
-		email := this.Input().Get("email")
+		name := this.Input().Get("teamName")
 		hackathonId, _ := strconv.Atoi(this.Input().Get("hackathonId")) //Add error handling for this
 
 		/*Create team first, then add boys.*/
@@ -55,8 +70,9 @@ func (this *TeamController) Post() {
 		team, err := models.GetTeamByName(name)
 
 		/*Check wheather team exists*/
-		if err != nil {
+		if err == nil {
 			/*Update the entries*/
+			email := this.Input().Get("email")
 			user, _ := models.GetUserByEmail(email) //Add error handling for this
 			if team.UserId2 == -1 {
 				team.UserId2 = user.Id
@@ -95,7 +111,7 @@ func (this *TeamController) Post() {
 			}
 			models.AddTeam(&team)
 		}
-
+		this.Redirect("/team?hackathonId="+strconv.Itoa(hackathonId), 302)
 	}
 }
 
@@ -114,9 +130,6 @@ func (c *TeamController) Get() {
 		if err != nil {
 			beego.Error(err)
 		}
-		//beego.Info("Taking team info !")
-		//beego.Info(user.Id)
-		//beego.Info(hackathonId)
 		team := getTeamOfUser(user.Id, hackathonId)
 
 		//beego.Info(team)
@@ -124,9 +137,73 @@ func (c *TeamController) Get() {
 			c.Data["team"] = 0
 		} else {
 			c.Data["team"] = 1
-			c.Data["teamDetail"] = team
-		}
 
+			var teamDetail TeamDetail
+			teamDetail.Name = team.Name
+			if team.UserId1 != -1 {
+				user1, _ := models.GetUserById(team.UserId1)
+				teamDetail.User1 = user1.Name
+				teamDetail.Email1 = user1.Email
+				if team.AccByU1 == true {
+					teamDetail.AccByU1 = 1
+				} else {
+					teamDetail.AccByU1 = 0
+				}
+			} else {
+				teamDetail.User1 = "undefined"
+				teamDetail.Email1 = "undefined"
+				teamDetail.AccByU1 = 0
+			}
+
+			if team.UserId2 != -1 {
+				user2, _ := models.GetUserById(team.UserId2)
+				teamDetail.User2 = user2.Name
+				teamDetail.Email2 = user2.Email
+				if team.AccByU2 == true {
+					teamDetail.AccByU2 = 1
+				} else {
+					teamDetail.AccByU2 = 0
+				}
+			} else {
+				teamDetail.User2 = "undefined"
+				teamDetail.Email2 = "undefined"
+				teamDetail.AccByU2 = 0
+			}
+
+			if team.UserId3 != -1 {
+				user3, _ := models.GetUserById(team.UserId3)
+				teamDetail.User3 = user3.Name
+				teamDetail.Email3 = user3.Email
+				if team.AccByU3 == true {
+					teamDetail.AccByU3 = 1
+				} else {
+					teamDetail.AccByU3 = 0
+				}
+			} else {
+				teamDetail.User3 = "undefined"
+				teamDetail.Email3 = "undefined"
+				teamDetail.AccByU3 = 0
+			}
+
+			if team.UserId4 != -1 {
+				user4, _ := models.GetUserById(team.UserId4)
+				teamDetail.User4 = user4.Name
+				teamDetail.Email4 = user4.Email
+				if team.AccByU4 == true {
+					teamDetail.AccByU4 = 1
+				} else {
+					teamDetail.AccByU4 = 0
+				}
+			} else {
+				teamDetail.User4 = "undefined"
+				teamDetail.Email4 = "undefined"
+				teamDetail.AccByU4 = 0
+			}
+
+			c.Data["teamDetail"] = teamDetail
+		}
+		beego.Info(team)
+		c.Data["hackathonId"] = strconv.Itoa(hackathonId)
 		c.TplNames = "team.tpl"
 	}
 }
@@ -178,7 +255,12 @@ func (this *TeamConfirmController) Get() {
 		/*Add hackathon and team validation*/
 
 		user, _ := models.GetUserByEmail(email)
-		team, _ := models.GetTeamByName(teamName)
+		team, err := models.GetTeamByName(teamName)
+		if err != nil {
+			beego.Error(err)
+		} else {
+			beego.Info("No error")
+		}
 
 		if team.HackathonId == hackathonId {
 			if team.UserId2 == user.Id {

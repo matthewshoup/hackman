@@ -72,7 +72,7 @@
             		<p style="font-size:14px">{{$val.Description}}</p>
             	</div>
             	<div class="col-mg-2">
-            		<a href="/hackathon/{{$val.Id}}"><button class="btn btn-default">Participate</button></a>
+            		<a href="/team?hackathonId={{$val.Id}}"><button class="btn btn-default">Participate</button></a>
             	</div>
             </div>
             </td>

@@ -63,15 +63,20 @@
 		<div class="row" >
 			<div class="col-md-6">
                     <blockquote>Your Details </blockquote>
-                    
-                    <form>
+                    {{if eq .team 1}}
+                    <div class="form-group">
+                    <label for="teamName">Youe team is {{.teamDetail.Name}}</label>
+                    </div>
+                    {{else}}
+                    <form action="/team" method="post">
 						<div class="form-group">
 							<label for="teamName">Team Name</label>
+							<input type="hidden" name="hackathonId" value={{.hackathonId}}>
 						    <input type="text" class="form-control" id="teamName" placeholder="Name" required>
 						</div>
 				        <button type="submit" class="btn btn-default">Submit</button>
 					</form>
-					
+					{{end}}
 			</div>
 			<div class="col-md-6">
 				<blockquote>Members</blockquote>
@@ -86,20 +91,24 @@
  					{{end}}
 
  					{{if eq .team 1}}
+
+ 					{{if ne .teamDetail.User1 "undefined"}}
  					<tbody>
  					<tr>
- 						<td>{{.teamDetail.userId1}}</td>
- 						{{if eq .teamDetail.acc_by_u1 true}}
+ 						<td>{{.teamDetail.User1}}</td>
+ 						{{if eq .teamDetail.AccByU1 1}}
  						<td>Accepted</td>
  						{{else}}
  						<td>Pending</td>
  						{{end}}
  					</tr>
  					</tbody>
+ 					{{end}}
 
+ 					{{if ne .teamDetail.User2 "undefined"}}
  					<tbody>
  					<tr>
- 						<td>{{.teamDetail.userId2}}</td>
+ 						<td>{{.teamDetail.user_id2}}</td>
  						{{if eq .teamDetail.acc_by_u2 true}}
  						<td>Accepted</td>
  						{{else}}
@@ -107,9 +116,12 @@
  						{{end}}
  					</tr>
  					</tbody>
+ 					{{end}}
+
+ 					{{if ne .teamDetail.User3 "undefined"}}
  					<tbody>
  					<tr>
- 						<td>{{.teamDetail.userId3}}</td>
+ 						<td>{{.teamDetail.user_id3}}</td>
  						{{if eq .teamDetail.acc_by_u3 true}}
  						<td>Accepted</td>
  						{{else}}
@@ -117,9 +129,12 @@
  						{{end}}
  					</tr>
  					</tbody>
+ 					{{end}}
+
+ 					{{if ne .teamDetail.User4 "undefined"}}
  					<tbody>
  					<tr>
- 						<td>{{.teamDetail.userId4}}</td>
+ 						<td>{{.teamDetail.user_id4}}</td>
  						{{if eq .teamDetail.acc_by_u4 true}}
  						<td>Accepted</td>
  						{{else}}
@@ -127,6 +142,7 @@
  						{{end}}
  					</tr>
  					</tbody>
+ 					{{end}}
 
  					{{else}}
  					<tbody>

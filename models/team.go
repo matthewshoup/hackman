@@ -51,11 +51,13 @@ func GetTeamById(id int64) (v *Team, err error) {
 
 func GetTeamByName(name string) (v *Team, err error) {
 	o := orm.NewOrm()
-	v = &Team{Name: name}
-	if err = o.Read(v); err == nil {
-		return v, nil
+
+	err = o.Raw("SELECT * FROM team where name = ?", name).QueryRow(&v)
+	if err == nil {
+	}else{
+		return nil, err
 	}
-	return nil, err
+	return v, nil
 }
 
 func GetTeamByUIdHId(UId int, HId int) (v *Team, err error) {
