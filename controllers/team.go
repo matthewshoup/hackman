@@ -5,6 +5,7 @@ import (
 	"github.com/pravj/hackman/models"
 	"strconv"
 	"time"
+	"github.com/pravj/hackman/utils/mailer"
 )
 
 type TeamController struct {
@@ -61,6 +62,7 @@ func (this *TeamController) Post() {
 
 		username := w["username"]
 		name := this.Input().Get("teamName")
+		beego.Info("Team is "+name)
 		hackathonId, _ := strconv.Atoi(this.Input().Get("hackathonId")) //Add error handling for this
 
 		/*Create team first, then add boys.*/
@@ -73,22 +75,26 @@ func (this *TeamController) Post() {
 		if err == nil {
 			/*Update the entries*/
 			email := this.Input().Get("email")
-			user, _ := models.GetUserByEmail(email) //Add error handling for this
+			user, uerr := models.GetUserByEmail(email) //Add error handling for this
+			if uerr != nil {
+				beego.Error(uerr)
+			}
+			tempTeam := team
 			if team.UserId2 == -1 {
-				team.UserId2 = user.Id
+				tempTeam.UserId2 = user.Id
 			} else if team.UserId3 == -1 {
-				team.UserId3 = user.Id
+				tempTeam.UserId3 = user.Id
 			} else if team.UserId4 == -1 {
-				team.UserId4 = user.Id
+				tempTeam.UserId4 = user.Id
 			}
 
-			err1 := models.UpdateTeamById(team)
+			err1 := models.UpdateTeamById(tempTeam)
 			if err1 == nil {
 				//SendMail(email, hackathonName, teamName, teamId, username)
 				var mParameter messageParameter
 				mParameter.email = user.Email
 				mParameter.hackathonId = hackathonId
-				mParameter.teamName = team.Name
+				mParameter.teamName = tempTeam.Name
 				//mParameter.teamId = team.Id
 				mParameter.username = username
 				SendMail(mParameter)
@@ -273,14 +279,12 @@ func (this *TeamConfirmController) Get() {
 
 			err := models.UpdateTeamById(team)
 			if err == nil {
-				//SendMail(email, team.HackathonId, team.Name, team.Id, username)
 				var mParameter messageParameter
 				mParameter.email = user.Email
 				mParameter.hackathonId = hackathonId
 				mParameter.teamName = team.Name
-				//mParameter.teamId = team.Id
 				mParameter.username = w["username"]
-				SendMail(mParameter)
+				//SendMail(mParameter)
 			}
 		} else {
 			this.Data["Status"] = 0
@@ -296,14 +300,20 @@ func SendMail(mParameter messageParameter) {
 	email := mParameter.email
 	hackathonId := mParameter.hackathonId
 	teamName := mParameter.teamName
-	//teamId := mParameter.teamId
 	username := mParameter.username
 
 	hackathon, _ := models.GetHackathonById(hackathonId)
 	user, _ := models.GetUserByUsername(username)
 
 	//message string
-	message := "You have been added in team " + teamName + " By " + user.Name + " for " + hackathon.Name + ",\n <a href=http://localhost:8080/confirmteam?hackathonId=" + strconv.Itoa(hackathonId) + "&teamName=" + teamName + ">click here</a> to confirm your Team."
+	message := "You have been added in team " + teamName + " By " + user.Name + " for " + hackathon.Name + ",\n <a href=http://172.25.18.220:8080/confirmteam?hackathonId=" + strconv.Itoa(hackathonId) + "&teamName=" + teamName + ">click here</a> to confirm your Team."
 	beego.Info(message, email)
-	/* TODO : Message Sending part */
+	mail := mailer.New(beego.AppConfig.String("mailgundomain"), beego.AppConfig.String("apikey"), beego.AppConfig.String("apikeypublic"))
+    msg := mailer.Message{Heading: "Invitation Mail", Body: message, Receiver: email}
+    id, err := mail.SendMessage(msg)
+    if err != nil {
+    	beego.Error(err)
+    } else {
+    	beego.Info(id)
+    }
 }

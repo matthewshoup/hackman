@@ -72,7 +72,7 @@
 						<div class="form-group">
 							<label for="teamName">Team Name</label>
 							<input type="hidden" name="hackathonId" value={{.hackathonId}}>
-						    <input type="text" class="form-control" id="teamName" placeholder="Name" required>
+						    <input type="text" class="form-control" id="teamName" placeholder="Name" name="teamName" required>
 						</div>
 				        <button type="submit" class="btn btn-default">Submit</button>
 					</form>
@@ -157,7 +157,10 @@
 				<form action="/team" method="post">
 				  <div class="form-group">
 				    <label for="exampleInputEmail1">Invite Member</label>
-				    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" required>
+				    <input type="hidden" name="hackathonId" value={{.hackathonId}}>
+				    <input type="hidden" name="teamName" value={{.teamDetail.Name}}>
+				    
+				    <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" required>
 				  </div>
 				  <button type="submit" class="btn btn-default">Invite</button>
 				</form>
