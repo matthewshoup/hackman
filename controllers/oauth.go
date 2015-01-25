@@ -79,7 +79,7 @@ func AccessToken(Code, ClientId, ClientSecret string) string {
 
 	var resp response
 
-	body := request.Post(TOKEN_ENDPOINT, "", payloadReader)
+	body := request.Post(TOKEN_ENDPOINT, "", payloadReader, false)
 	json.Unmarshal(body, &resp)
 
 	return resp.AccessToken

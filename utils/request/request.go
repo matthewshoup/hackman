@@ -22,8 +22,14 @@ func Get(url, accessToken string) []byte {
 	return body
 }
 
-func Post(url, accessToken string, payloadReader io.Reader) []byte {
+func Post(url, accessToken string, payloadReader io.Reader, media bool) []byte {
 	req, _ := http.NewRequest("POST", url, payloadReader)
+
+        if media {
+                req.Header.Set("Accept", "application/vnd.github.sersi-preview+json")
+        } else {
+                req.Header.Set("Accept", "application/json")
+        }
 
 	if accessToken != "" {
 		authHeader := "token " + accessToken
@@ -31,7 +37,6 @@ func Post(url, accessToken string, payloadReader io.Reader) []byte {
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Accept", "application/json")
 
 	client := &http.Client{}
 	res, _ := client.Do(req)
