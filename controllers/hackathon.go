@@ -35,8 +35,16 @@ func (c *HackathonController) Post() {
 // @Failure 403 :id is empty
 // @router /:id [get]
 func (c *HackathonController) Get() {
-	c.Data["data"] = models.GetAllHackathon()
-	c.TplNames = "current.tpl"
+	v := c.GetSession("hackman")
+	if v == nil {
+		c.Redirect("/", 302)
+	} else {
+		w, _ := v.(map[string]string)
+		c.Data["Name"] = w["name"]
+		c.Data["Avatar"] = w["avatar"]
+		c.Data["Hackathons"] = models.GetAllHackathon()
+		c.TplNames = "current.tpl"
+	}
 }
 
 // @Title Get All

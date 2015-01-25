@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/pravj/hackman/models"
 )
 
 type MainController struct {
@@ -24,7 +25,14 @@ func (this *MainController) Get() {
 
 		this.Data["Name"] = w["name"]
 		this.Data["Avatar"] = w["avatar"]
-		this.TplNames = "user.tpl"
+
+		hackathons := models.GetAllHackathon()
+		this.Data["Hackathons"] = hackathons
+
+		announcements := models.GetAllAnnouncement()
+		this.Data["Announcements"] = announcements
+
+		this.TplNames = "public.tpl"
 	}
 }
 

@@ -32,7 +32,7 @@
                                 <div class="collapse navbar-collapse navHeaderCollapse" >
 
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="current.htm">Active Now</a></li>
+						<li><a href="/hackathon">Active Now</a></li>
 						<li class="dropdown">
 							
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">

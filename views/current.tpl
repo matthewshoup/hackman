@@ -62,42 +62,22 @@
                         <blockquote>Active Hackathons</blockquote>
             <table class="table">
             <tbody>
+
+            {{range $key, $val := .Hackathons}}
             <tr>
             <td>
             <div class="row">
             	<div class="col-md-10">
-            		<p style="font-size:14px">This is a Announcement.And go participate and enjoy it. Text is text man. And yeah i think now it will no suck. Yeah man.iam right.</p>
+            		<p style="font-size:30px">{{$val.Name}}</p>
+            		<p style="font-size:14px">{{$val.Description}}</p>
             	</div>
             	<div class="col-mg-2">
-            		<button class="btn btn-default">Participate</button>
+            		<a href="/hackathon/{{$val.Id}}"><button class="btn btn-default">Participate</button></a>
             	</div>
             </div>
             </td>
             </tr>
-            <tr>
-            <td>
-            <div class="row">
-            	<div class="col-md-10">
-            		<p style="font-size:14px">This is another anouncement man . hpoe u liked last one.</p>
-            	</div>
-            	<div class="col-mg-2">
-            		<button class="btn btn-default">Participate</button>
-            	</div>
-            </div>
-            </td>
-            </tr>
-            <tr>
-            <td>
-            <div class="row">
-            	<div class="col-md-10">
-            		<p style="font-size:14px">This is the last anouncement buddies.Go get an inetrn .:)</p>
-            	</div>
-            	<div class="col-mg-2">
-            		<button class="btn btn-default">Participate</button>
-            	</div>
-            </div>
-            </td>
-            </tr>
+            {{end}}
              </tbody>     
             </table>
 
