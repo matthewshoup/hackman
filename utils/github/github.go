@@ -22,7 +22,6 @@ type Team struct {
 
 type TeamParameter struct {
   Name string `json:"name"`
-  //RepoNames []string `json:"repo_names"`
   Permission string `json:"permission"`
 }
 
@@ -43,10 +42,10 @@ func CreateTeams(org *Organization, accessToken string) {
     body := request.Post(TEAM_CREATION_ENDPOINT + org.Name + "/teams", accessToken, payloadReader)
     fmt.Println(string(body))
 
-    //var tr TeamResponse
-    //json.Unmarshal(body, &tr)
+    var tr TeamResponse
+    json.Unmarshal(body, &tr)
 
-    //fmt.Println(tr.Id)
+    fmt.Println(tr.Id)
   }
 }
 

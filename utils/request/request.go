@@ -1,7 +1,7 @@
 package request
 
 import "net/http"
-import "fmt"
+//import "fmt"
 import "io"
 import "io/ioutil"
 
@@ -23,13 +23,7 @@ func Get(url, accessToken string) []byte {
 }
 
 func Post(url, accessToken string, payloadReader io.Reader) []byte {
-	req, _ := http.NewRequest("POST", url, payloadReader)
-
-        if accessToken != "" {
-          fmt.Println("including")
-          authHeader := "token " + accessToken
-          req.Header.Set("Authrization", authHeader)
-        }
+	req, _ := http.NewRequest("POST", url + "?access_token=" + accessToken, payloadReader)
 
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
