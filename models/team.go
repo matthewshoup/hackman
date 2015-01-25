@@ -67,6 +67,53 @@ func GetTeamByUIdHId(UId int, HId int) (v *Team, err error) {
 	return nil, err
 }
 
+
+/* To check the team od a user */
+func GetTeamByUserId1(userId int, hackathonId int) (v *Team, err error) {
+	o := orm.NewOrm()
+
+	err = o.Raw("SELECT * FROM team where user_id1 = ? and hackathon_id = ?", userId, hackathonId).QueryRow(&v)
+	if err == nil {
+	}else{
+		return nil, err
+	}
+	return v, nil
+}
+
+func GetTeamByUserId2(userId int, hackathonId int) (v *Team, err error) {
+	o := orm.NewOrm()
+
+	err = o.Raw("SELECT * FROM team where user_id2 = ? and hackathon_id = ?", userId, hackathonId).QueryRow(&v)
+	if err == nil {
+	}else{
+		return nil, err
+	}
+	return v, nil
+}
+
+func GetTeamByUserId3(userId int, hackathonId int) (v *Team, err error) {
+	o := orm.NewOrm()
+
+	err = o.Raw("SELECT * FROM team where user_id3 = ? and hackathon_id = ?", userId, hackathonId).QueryRow(&v)
+	if err == nil {
+	}else{
+		return nil, err
+	}
+	return v, nil
+}
+
+func GetTeamByUserId4(userId int, hackathonId int) (v *Team, err error) {
+	o := orm.NewOrm()
+
+	err = o.Raw("SELECT * FROM team where user_id4 = ? and hackathon_id = ?", userId, hackathonId).QueryRow(&v)
+	if err == nil {
+	}else{
+		return nil, err
+	}
+	return v, nil
+}
+/*Till here*/
+
 // GetAllTeam retrieves all Team matches certain condition. Returns empty list if
 // no records exist
 func GetAllTeam(query map[string]string, fields []string, sortby []string, order []string,

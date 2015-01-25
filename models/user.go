@@ -106,11 +106,14 @@ func GetUserByEmail(email string) (v *User, err error) {
 
 func GetUserByUsername(username string) (v *User, err error) {
 	o := orm.NewOrm()
-	v = &User{UserName: username}
-	if err = o.Read(v); err == nil {
-		return v, nil
+
+	err = o.Raw("SELECT * FROM user where user_name = ?", username).QueryRow(&v)
+	if err == nil {
+	}else{
+		beego.Error(err)
+		return nil, err
 	}
-	return nil, err
+	return v, nil
 }
 
 // UpdateUser updates User by Id and returns error if

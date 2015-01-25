@@ -63,6 +63,7 @@
 		<div class="row" >
 			<div class="col-md-6">
                     <blockquote>Your Details </blockquote>
+                    
                     <form>
 						<div class="form-group">
 							<label for="teamName">Team Name</label>
@@ -70,42 +71,74 @@
 						</div>
 				        <button type="submit" class="btn btn-default">Submit</button>
 					</form>
+					
 			</div>
 			<div class="col-md-6">
 				<blockquote>Members</blockquote>
 				<table class="table table-hover" style="margin-top:20px">
+					{{if `.team == 1`}}
 					<thead>
  					<tr>
  						<th>Name</th>
  						<th>Status</th>
  					</tr>
  					</thead>
+ 					{{end}}
+
+ 					{{if `.team == 1`}}
  					<tbody>
  					<tr>
- 						<td>Gophergala</td>
+ 						<td>{{.teamDetail.userId1}}</td>
+ 						{{if `.teamDetail.acc_by_u1`}}
  						<td>Accepted</td>
+ 						{{else}}
+ 						<td>Pending</td>
+ 						{{end}}
+ 					</tr>
+ 					</tbody>
+
+ 					<tbody>
+ 					<tr>
+ 						<td>{{.teamDetail.userId2}}</td>
+ 						{{if `.teamDetail.acc_by_u2`}}
+ 						<td>Accepted</td>
+ 						{{else}}
+ 						<td>Pending</td>
+ 						{{end}}
  					</tr>
  					</tbody>
  					<tbody>
  					<tr>
- 						<td>Node knockout</td>
+ 						<td>{{.teamDetail.userId3}}</td>
+ 						{{if `.teamDetail.acc_by_u3`}}
+ 						<td>Accepted</td>
+ 						{{else}}
  						<td>Pending</td>
+ 						{{end}}
  					</tr>
  					</tbody>
  					<tbody>
  					<tr>
- 						<td>Django dash</td>
+ 						<td>{{.teamDetail.userId4}}</td>
+ 						{{if `.teamDetail.acc_by_u4`}}
+ 						<td>Accepted</td>
+ 						{{else}}
  						<td>Pending</td>
+ 						{{end}}
  					</tr>
  					</tbody>
+
+ 					{{else}}
  					<tbody>
  					<tr>
- 						<td>Last Member</td>
- 						<td>Pending</td>
+ 						<td>No body is there !!</td>
+ 						<td>Add some people</td>
  					</tr>
  					</tbody>
+ 					{{end}}
+ 					
 				</table>
-				<form>
+				<form action="/team" method="post">
 				  <div class="form-group">
 				    <label for="exampleInputEmail1">Invite Member</label>
 				    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" required>

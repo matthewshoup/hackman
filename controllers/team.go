@@ -99,8 +99,70 @@ func (this *TeamController) Post() {
 	}
 }
 
-func (this *TeamController) Get() {
+func (c *TeamController) Get() {
+	v := c.GetSession("hackman")
+	if v == nil {
+		c.Redirect("/", 302)
+	} else {
+		w, _ := v.(map[string]string)
+		c.Data["Name"] = w["name"]
+		c.Data["Avatar"] = w["avatar"]
+		username := w["username"]
+		beego.Info(username)
+		hackathonId, _ := strconv.Atoi(c.Input().Get("hackathonId"))
+		user, err := models.GetUserByUsername(username)
+		if err != nil {
+			beego.Error(err)
+		}
+		//beego.Info("Taking team info !")
+		//beego.Info(user.Id)
+		//beego.Info(hackathonId)
+		team := getTeamOfUser(user.Id, hackathonId)
 
+		//beego.Info(team)
+		if team == nil {
+			c.Data["team"] = 0
+		} else {
+			c.Data["team"] = 1
+			c.Data["teamDetail"] = team
+		}
+
+		c.TplNames = "team.tpl"
+	}
+}
+
+func getTeamOfUser(userId int, hackathonId int) (team *models.Team) {
+
+	var err error
+	team, err = models.GetTeamByUserId1(userId, hackathonId)
+	if team != nil {
+		return team
+	}
+
+	if err != nil {
+		beego.Error(err)
+	}
+
+	//beego.Info("1")
+	team, _ = models.GetTeamByUserId2(userId, hackathonId)
+	if team != nil {
+		return team
+	}
+
+	//beego.Info("2")
+	team, _ = models.GetTeamByUserId3(userId, hackathonId)
+	if team != nil {
+		return team
+	}
+
+	//beego.Info("3")
+	team, _ = models.GetTeamByUserId4(userId, hackathonId)
+	if team != nil {
+		return team
+	}
+	//beego.Info("4")
+	//beego.Info(team)
+	return nil
 }
 
 func (this *TeamConfirmController) Get() {
