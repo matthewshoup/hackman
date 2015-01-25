@@ -76,7 +76,7 @@
 			<div class="col-md-6">
 				<blockquote>Members</blockquote>
 				<table class="table table-hover" style="margin-top:20px">
-					{{if `.team == 1`}}
+					{{if eq .team 1}}
 					<thead>
  					<tr>
  						<th>Name</th>
@@ -85,11 +85,11 @@
  					</thead>
  					{{end}}
 
- 					{{if `.team == 1`}}
+ 					{{if eq .team 1}}
  					<tbody>
  					<tr>
  						<td>{{.teamDetail.userId1}}</td>
- 						{{if `.teamDetail.acc_by_u1`}}
+ 						{{if eq .teamDetail.acc_by_u1 true}}
  						<td>Accepted</td>
  						{{else}}
  						<td>Pending</td>
@@ -100,7 +100,7 @@
  					<tbody>
  					<tr>
  						<td>{{.teamDetail.userId2}}</td>
- 						{{if `.teamDetail.acc_by_u2`}}
+ 						{{if eq .teamDetail.acc_by_u2 true}}
  						<td>Accepted</td>
  						{{else}}
  						<td>Pending</td>
@@ -110,7 +110,7 @@
  					<tbody>
  					<tr>
  						<td>{{.teamDetail.userId3}}</td>
- 						{{if `.teamDetail.acc_by_u3`}}
+ 						{{if eq .teamDetail.acc_by_u3 true}}
  						<td>Accepted</td>
  						{{else}}
  						<td>Pending</td>
@@ -120,7 +120,7 @@
  					<tbody>
  					<tr>
  						<td>{{.teamDetail.userId4}}</td>
- 						{{if `.teamDetail.acc_by_u4`}}
+ 						{{if eq .teamDetail.acc_by_u4 true}}
  						<td>Accepted</td>
  						{{else}}
  						<td>Pending</td>
