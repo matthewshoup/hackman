@@ -20,11 +20,11 @@ func (this *PublicController) Get() {
 		this.Data["Name"] = w["name"]
 		this.Data["Avatar"] = w["avatar"]
 
-                hackathons := models.GetAllHackathon()
-                this.Data["Hackathons"] = hackathons
+		hackathons := models.GetAllHackathon()
+		this.Data["Hackathons"] = hackathons
 
-                announcements := models.GetAllAnnouncement()
-                this.Data["Announcements"] = announcements
+		announcements := models.GetAllAnnouncement()
+		this.Data["Announcements"] = announcements
 
 		this.TplNames = "public.tpl"
 	}

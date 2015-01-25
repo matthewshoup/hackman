@@ -12,7 +12,7 @@ import (
 type Team struct {
 	Id          int64  `orm:"auto"`
 	Name        string `orm:"size(128)"`
-	RepoName	string `orm:"size(128)"`
+	RepoName    string `orm:"size(128)"`
 	UserId1     int
 	UserId2     int
 	UserId3     int

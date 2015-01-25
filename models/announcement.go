@@ -40,14 +40,14 @@ func GetAnnouncementById(id int) (v *Announcement, err error) {
 }
 
 // GetAllHackathon retrieves all Hackathon events as a slice object
-func GetAllAnnouncement() ([]Announcement) {
-  o := orm.NewOrm()
-  var announcements []Announcement
+func GetAllAnnouncement() []Announcement {
+	o := orm.NewOrm()
+	var announcements []Announcement
 
-  _, err := o.Raw("SELECT * FROM announcement").QueryRows(&announcements)
-  if err == nil {
-  }
-  return announcements
+	_, err := o.Raw("SELECT * FROM announcement").QueryRows(&announcements)
+	if err == nil {
+	}
+	return announcements
 }
 
 // UpdateAnnouncement updates Announcement by Id and returns error if

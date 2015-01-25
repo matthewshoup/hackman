@@ -32,29 +32,29 @@ func AddHackathon(m *Hackathon) (id int64, err error) {
 // CreateHackathon checks for an existing hackathon and create one
 // if it's not already there by same name.
 func CreateHackathon(m *Hackathon) {
-  o := orm.NewOrm()
-  hackathon := Hackathon{Name: m.Name}
+	o := orm.NewOrm()
+	hackathon := Hackathon{Name: m.Name}
 
-  err := o.Read(&hackathon, "Name")
-  if err == orm.ErrNoRows {
-    beego.Info("no result found")
-    o.Insert(m)
-  } else if err == orm.ErrMissPK {
-    beego.Info("no primary key found")
-  } else {
-    beego.Info(hackathon.Name)
-  }
+	err := o.Read(&hackathon, "Name")
+	if err == orm.ErrNoRows {
+		beego.Info("no result found")
+		o.Insert(m)
+	} else if err == orm.ErrMissPK {
+		beego.Info("no primary key found")
+	} else {
+		beego.Info(hackathon.Name)
+	}
 }
 
 // GetAllHackathon retrieves all Hackathon events as a slice object
-func GetAllHackathon() ([]Hackathon) {
-  o := orm.NewOrm()
-  var hackathons []Hackathon
+func GetAllHackathon() []Hackathon {
+	o := orm.NewOrm()
+	var hackathons []Hackathon
 
-  _, err := o.Raw("SELECT * FROM hackathon").QueryRows(&hackathons)
-  if err == nil {
-  }
-  return hackathons
+	_, err := o.Raw("SELECT * FROM hackathon").QueryRows(&hackathons)
+	if err == nil {
+	}
+	return hackathons
 }
 
 // GetHackathonById retrieves Hackathon by Id. Returns error if

@@ -16,8 +16,8 @@ type User struct {
 	UserName string `orm:"size(128)"`
 	Email    string `orm:"size(128)"`
 	Token    string `orm:"size(128)"`
-    Avatar   string `orm:"size(128)"`
-    Admin    string `orm:"size(128)"`
+	Avatar   string `orm:"size(128)"`
+	Admin    string `orm:"size(128)"`
 }
 
 func init() {
@@ -33,55 +33,55 @@ func AddUser(m *User) (id int64, err error) {
 }
 
 func CreateUser(m *User) bool {
-  o := orm.NewOrm()
+	o := orm.NewOrm()
 
-  var rows int
-  var result int64 = -1
-  beego.Info(m.Admin)
-  o.Raw("select count(*) as Count from user").QueryRow(&rows)
-  beego.Info(rows)
-  if rows > 0 {
-    m.Admin = "no"
-  }
-  beego.Info(m.Admin)
+	var rows int
+	var result int64 = -1
+	beego.Info(m.Admin)
+	o.Raw("select count(*) as Count from user").QueryRow(&rows)
+	beego.Info(rows)
+	if rows > 0 {
+		m.Admin = "no"
+	}
+	beego.Info(m.Admin)
 
-  user := User{Email: m.Email}
+	user := User{Email: m.Email}
 
-  err := o.Read(&user, "Email")
-  if err == orm.ErrNoRows {
-    beego.Info("no result found")
+	err := o.Read(&user, "Email")
+	if err == orm.ErrNoRows {
+		beego.Info("no result found")
 
-    id, _ := o.Insert(m)
-    result = id
+		id, _ := o.Insert(m)
+		result = id
 
-  } else if err == orm.ErrMissPK {
-    beego.Info("no primary key found")
-  } else {
-    beego.Info(user.Name)
-  }
+	} else if err == orm.ErrMissPK {
+		beego.Info("no primary key found")
+	} else {
+		beego.Info(user.Name)
+	}
 
-    beego.Info(result)
-    if result == -1 {
-      var users int;
-      o.Raw("select count(*) as Count from user where admin = ? and name = ?", "yes", m.Name).QueryRow(&users)
-      if users > 0 {
-        beego.Info("read admin")
-        return true
-      } else {
-        beego.Info("fake admin")
-        return false
-      }
-    } else if result == 1 {
-      beego.Info("admin")
-      return true
-    } else {
-      beego.Info("user")
-      return false
-    }
+	beego.Info(result)
+	if result == -1 {
+		var users int
+		o.Raw("select count(*) as Count from user where admin = ? and name = ?", "yes", m.Name).QueryRow(&users)
+		if users > 0 {
+			beego.Info("read admin")
+			return true
+		} else {
+			beego.Info("fake admin")
+			return false
+		}
+	} else if result == 1 {
+		beego.Info("admin")
+		return true
+	} else {
+		beego.Info("user")
+		return false
+	}
 }
 
 func IsAdmin(m *User) {
-  //o := orm.NewOrm()
+	//o := orm.NewOrm()
 }
 
 // GetUserById retrieves User by Id. Returns error if
@@ -95,7 +95,7 @@ func GetUserById(id int) (v *User, err error) {
 	return nil, err
 }
 
-func GetUserByEmail(email string) (v *User, err error){
+func GetUserByEmail(email string) (v *User, err error) {
 	o := orm.NewOrm()
 	v = &User{Email: email}
 	if err = o.Read(v); err == nil {
@@ -104,7 +104,7 @@ func GetUserByEmail(email string) (v *User, err error){
 	return nil, err
 }
 
-func GetUserByUsername(username string) (v *User, err error){
+func GetUserByUsername(username string) (v *User, err error) {
 	o := orm.NewOrm()
 	v = &User{UserName: username}
 	if err = o.Read(v); err == nil {

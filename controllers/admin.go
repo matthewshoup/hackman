@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-        "github.com/pravj/hackman/models"
+	"github.com/pravj/hackman/models"
 )
 
 type AdminController struct {
@@ -20,8 +20,8 @@ func (this *AdminController) Get() {
 		this.Data["Avatar"] = w["avatar"]
 
 		if w["profile"] == "admin" {
-                        hackathons := models.GetAllHackathon()
-                        this.Data["Hackathons"] = hackathons
+			hackathons := models.GetAllHackathon()
+			this.Data["Hackathons"] = hackathons
 
 			this.TplNames = "admin.tpl"
 		} else if w["profile"] == "user" {
@@ -32,7 +32,7 @@ func (this *AdminController) Get() {
 }
 
 func (this *AdminController) AdminEvent() {
-        v := this.GetSession("hackman")
+	v := this.GetSession("hackman")
 
 	if v == nil {
 		this.Redirect("/", 302)
@@ -43,7 +43,7 @@ func (this *AdminController) AdminEvent() {
 		this.Data["Avatar"] = w["avatar"]
 
 		if w["profile"] == "admin" {
-                        //hackathon := this.Ctx.Input.Param(":hackathon")
+			//hackathon := this.Ctx.Input.Param(":hackathon")
 			this.TplNames = "control.tpl"
 		} else if w["profile"] == "user" {
 			this.Redirect("/", 302)
